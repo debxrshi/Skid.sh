@@ -32,7 +32,7 @@ echo -e "\e[32m[+]\e[0m Looking for configs..."
 if [ -f skidconfig ]; then
 	echo -e "\e[32m[+]\e[0m Copying config \n"
 
-	#TODO: Implement config parsing and setup
+	#TODO: CONFIG PARSING
 	chaos_key=apikey
 else
 	echo -e "\e[33m[-]\e[0m Config not found! Continuing without config\n"
@@ -65,23 +65,21 @@ echo -e "\n\e[32m[+]\e[0m Probing subdomains with httpx\n\n"
 
 httpx -l subs -fr -random-agent -sc -title -td -server -retries 3 -fc 404 -lc -t 500
 
-#TODO: Setup more tools
+#TODO: Setup PARAM MINING, LFI, XSS, SQLi
 
-paramspider -l subs
+paramspider -l subs -o params_paramsp
 
-cat subs | gau -o url_gau
+cat subs | gau | tee >(grep "=" >params_gau) | grep -v "=" >urls_gau
 
-waymore
+waymore -i "$target" -mode U -oU urls_waymore
 
 uro -i urls* -o urls_uro
 
-uro -i results/*.txt -o urls_paramsp_uro
+uro -i params* -o urls_final
 
 # ghauri
 
 # wpscan
-
-# gau
 
 # waymore
 
