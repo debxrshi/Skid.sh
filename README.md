@@ -1,4 +1,4 @@
-# XSS and Bug Bounty Automation Setup
+# Bug Bounty Automation Setup
 
 ```
    _____ __   _     __       __
