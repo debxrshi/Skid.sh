@@ -7,9 +7,9 @@ WORKDIR /hunter
 COPY skid.sh /hunter
 RUN chmod +x /hunter/skid.sh
 
-RUN go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest && go install -v github.com/OJ/gobuster/v3@latest && go install github.com/lc/gau/v2/cmd/gau@latest && go install github.com/hahwul/dalfox/v2@latest && go install github.com/ffuf/ffuf/v2@latest
+RUN go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest && go install -v github.com/OJ/gobuster/v3@latest && go install github.com/lc/gau/v2/cmd/gau@latest && go install github.com/hahwul/dalfox/v2@latest && go install github.com/ffuf/ffuf/v2@latest && go install -v github.com/tomnomnom/anew@latest
 
-RUN pdtm -i subfinder,dnsx,httpx,katana,chaos-client
+RUN pdtm -i subfinder,dnsx,httpx,nuclei,katana,chaos-client
 
 RUN wget -P ${HOME}/.local/bin https://github.com/holly-hacker/git-dumper/releases/download/v0.1.0/git-dumper-linux && chmod +x ${HOME}/.local/bin/git-dumper-linux
 
