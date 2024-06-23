@@ -68,7 +68,7 @@ cat subs | gau --threads 8 | tee >(grep "=" >params_gau) | grep -v "=" >urls_gau
 
 waymore -i "$target" -mode U -oU urls_waymore
 
-cat urls_waymore >(grep "=" >params_waymore) | grep -v "=" >urls_waymore
+tee >(grep "=" >params_waymore) <urls_waymore | grep -v "=" >urls_waymore
 
 uro -i urls* -o urls
 
