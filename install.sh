@@ -3,17 +3,23 @@ if [[ $EUID -ne 0 ]]; then
 	exit 1
 fi
 
-apt update -y && apt install -y nmap vim python3 python3-pip unzip curl screen
+apt update -y && apt install -y nmap neovim python3 python3-pip unzip curl screen
 
 go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest && go install -v github.com/OJ/gobuster/v3@latest && go install github.com/lc/gau/v2/cmd/gau@latest && go install github.com/hahwul/dalfox/v2@latest && go install github.com/ffuf/ffuf/v2@latest
 
 pdtm -i subfinder,dnsx,httpx,katana,chaos-client
 
+export PATH=$PATH:/root/.pdtm/go/bin
+
+echo 'export PATH=$PATH:/root/.pdtm/go/bin' >>~/.bashrc
+
+source ~/.bashrc
+
 wget -P ${HOME}/.local/bin https://github.com/holly-hacker/git-dumper/releases/download/v0.1.0/git-dumper-linux && chmod +x ${HOME}/.local/bin/git-dumper-linux
 
-git clone https://github.com/devanshbatham/paramspider ~/.local/bin/paramspider && cd ~/.local/bin/paramspider && pip install . --break-system-packages
+git clone https://github.com/devanshbatham/paramspider ~/.local/bin/paramspider && cd ~/.local/bin/paramspider && pip install .
 
-git clone https://github.com/m4ll0k/SecretFinder.git ~/.local/bin/gitsecretfinder && cd ~/.local/bin/gitsecretfinder && pip install -r requirements.txt --break-system-packages && cp SecretFinder.py ../secretfinder && chmod +x ~/.local/bin/secretfinder
+git clone https://github.com/m4ll0k/SecretFinder.git ~/.local/bin/gitsecretfinder && cd ~/.local/bin/gitsecretfinder && pip install -r requirements.txt && cp SecretFinder.py ../secretfinder && chmod +x ~/.local/bin/secretfinder
 
 wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip && unzip SecList.zip && rm -f SecList.zip && mv SecLists-master /seclists
 
