@@ -35,12 +35,12 @@ process_target() {
 
 	echo -e "\e[32m[+]\e[0m Probing target with httpx"
 	host_probe=$(httpx -u "$target" -fr -sc -title -td -server -retries 3 -fc 404 -lc -t 500)
+
 	echo "$host_probe"
 
 	if [ -z "$host_probe" ]; then
 		echo -e "\n Host seems down. Did you type the right address?"
-		cd ..
-		return
+		return 1
 	fi
 
 	mkdir -p "$target"
@@ -91,11 +91,11 @@ process_target() {
 
 	echo -e "\n\e[32m[+]\e[0m Hunting XSS with XSStrike \n\n"
 
-	exit
+	return
 
-	xsstrike --seeds params
+	xsstrike --delay 5 --seeds params
 
-	sleep 120
+	sleep 180
 
 	dalfox file params --delay 3000
 	# sqlmap
@@ -107,6 +107,7 @@ process_target() {
 	cd ..
 }
 
+#TODO: File parsing not working
 if [ "$1" == "-f" ]; then
 	if [ -z "$2" ]; then
 		echo -e "\e[33m[-]\e[0m Please provide a file name with -f option."
@@ -120,7 +121,12 @@ if [ "$1" == "-f" ]; then
 	fi
 
 	while IFS= read -r target; do
-		process_target "$target"
+		if ! process_target "$target"; then
+			continue
+		fi
+		if [ -d "$target" ]; then
+			cd ..
+		fi
 	done <"$file"
 else
 	process_target "$1"
