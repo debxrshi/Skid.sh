@@ -11,6 +11,8 @@ pdtm -i subfinder,dnsx,httpx,katana,chaos-client
 
 export PATH=$PATH:/root/.pdtm/go/bin
 
+# need to manually source again
+
 echo 'export PATH=$PATH:/root/.pdtm/go/bin' >>~/.bashrc
 
 source ~/.bashrc
@@ -25,8 +27,8 @@ wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList
 
 curl -sL https://raw.githubusercontent.com/epi052/feroxbuster/main/install-nix.sh | bash -s /usr/local/bin
 
-pip install waymore dirsearch arjun xsstrike uro --break-system-packages
+pip install waymore dirsearch arjun xsstrike uro
 
-echo "/root/.local/bin:/root/go/bin:/usr/local/bin:$PATH" >>~/.bashrc
+echo '/root/.local/bin:/root/go/bin:/usr/local/bin:$PATH' >>~/.bashrc
 
 source ~/.bashrc

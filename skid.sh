@@ -54,6 +54,8 @@ echo -e "\n\e[32m[+]\e[0m Hunting subdomains with subfinder \n\n"
 
 subfinder -d "$target" -all -recursive -o subs_subf -active
 
+echo "$target" >>subs
+
 cat subs_* | sort | uniq >>subs
 
 echo -e "\n\e[32m[+]\e[0m Probing subdomains with httpx\n\n"
