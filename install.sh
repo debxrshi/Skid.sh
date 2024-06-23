@@ -1,21 +1,16 @@
-if [[ $EUID -ne 0 ]]; then
-	echo "This script requires root privileges to install packages. Please run with as root."
-	exit 1
-fi
-
-apt update -y && apt install -y nmap neovim python3 python3-pip unzip curl screen
+sudo apt update -y && apt install -y nmap neovim python3 python3-pip unzip curl screen
 
 go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest && go install -v github.com/OJ/gobuster/v3@latest && go install github.com/lc/gau/v2/cmd/gau@latest && go install github.com/hahwul/dalfox/v2@latest && go install github.com/ffuf/ffuf/v2@latest
 
-pdtm -i subfinder,dnsx,httpx,katana,chaos-client
+export PATH=$PATH:$HOME/go/bin
 
-export PATH=$PATH:/root/.pdtm/go/bin
+export PATH=$PATH:$HOME/.pdtm/go/bin
 
-# need to manually source again
-
-echo 'export PATH=$PATH:/root/.pdtm/go/bin' >>~/.bashrc
+echo 'export PATH=$PATH:$HOME/.pdtm/go/bin:$HOME/go/bin' >>~/.bashrc
 
 source ~/.bashrc
+
+pdtm -i subfinder,dnsx,httpx,katana,chaos-client
 
 wget -P ${HOME}/.local/bin https://github.com/holly-hacker/git-dumper/releases/download/v0.1.0/git-dumper-linux && chmod +x ${HOME}/.local/bin/git-dumper-linux
 
@@ -29,6 +24,6 @@ curl -sL https://raw.githubusercontent.com/epi052/feroxbuster/main/install-nix.s
 
 pip install waymore dirsearch arjun xsstrike uro
 
-echo '/root/.local/bin:/root/go/bin:/usr/local/bin:$PATH' >>~/.bashrc
+echo 'export PATH=$PATH:$HOME/.local/bin' >>~/.bashrc
 
-source ~/.bashrc
+echo -e "\n Make sure to source your .bashrc!\n"
