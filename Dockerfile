@@ -24,6 +24,6 @@ RUN curl -sL https://raw.githubusercontent.com/epi052/feroxbuster/main/install-n
 
 RUN pip install waymore dirsearch arjun xsstrike uro --break-system-packages
 
-ENV PATH="/root/.local/bin:/root/go/bin:/usr/local/bin:${PATH}"
+ENV PATH="/root/.local/bin:/root/.pdtm/go/bin:/root/go/bin:/usr/local/bin:${PATH}"
 
 
