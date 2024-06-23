@@ -15,8 +15,11 @@ RUN wget -P ${HOME}/.local/bin https://github.com/holly-hacker/git-dumper/releas
 
 RUN git clone https://github.com/devanshbatham/paramspider ~/.local/bin/paramspider && cd ~/.local/bin/paramspider  && pip install . --break-system-packages
 
+RUN git clone https://github.com/r0oth3x49/ghauri ~/.local/bin/ghauri && cd ~/.local/bin/ghauri && pip install --upgrade -r requirements.txt --break-system-packages
+
 RUN git clone https://github.com/m4ll0k/SecretFinder.git ~/.local/bin/gitsecretfinder && cd ~/.local/bin/gitsecretfinder && pip install -r requirements.txt --break-system-packages && cp SecretFinder.py ../secretfinder && chmod +x ~/.local/bin/secretfinder
 
+RUN git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git ~/.local/bin/sqlmap-dev && cd ~/.local/bin/sqlmap-dev && chmod +x sqlmap.py && cp sqlmap.py ../sqlmap
 
 RUN wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip && unzip SecList.zip && rm -f SecList.zip && mv SecLists-master /seclists
 

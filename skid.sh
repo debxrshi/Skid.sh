@@ -63,11 +63,11 @@ process_target() {
 		httpx -l subs -fr -random-agent -sc -title -td -server -retries 3 -fc 404 -lc -t 500
 	fi
 
-	# TODO: Paramspider Dev , Setup JS, LFI, XSS, SQLi
-
-	#paramspider -l subs -o params_paramsp
+	#TODO: Paramspider Dev , Setup JS, LFI, XSS, SQLi
 
 	echo -e "\n\e[32m[+]\e[0m Gathering URLs with gau \n\n"
+
+	#TODO: Better URL segregation and parsing
 
 	gau --threads 8 $(cat subs) | anew | tee >(grep "=" | anew >params_gau) | grep -v "=" | anew >urls_gau
 
@@ -77,13 +77,13 @@ process_target() {
 
 	sleep 3
 
-	tee >(grep "=" | anew >params_waymore) <urls_waymore | grep -v "=" | anew >urls_waymore_non_params
+	tee >(grep "=" | anew >params_waymore) <urls_waymore | grep -v "=" | anew >urls_waymore
 
 	echo -e "\n\e[32m[+]\e[0m Cleaning URLs with uro \n\n"
 
-	cat urls* | anew >urls
+	cat urls* | sort -u | urls
 
-	cat params* | anew >params
+	cat params* | sort -u | params
 
 	uro -i urls -o urls
 

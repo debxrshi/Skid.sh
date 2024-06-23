@@ -18,6 +18,10 @@ git clone https://github.com/devanshbatham/paramspider ~/.local/bin/paramspider 
 
 git clone https://github.com/m4ll0k/SecretFinder.git ~/.local/bin/gitsecretfinder && cd ~/.local/bin/gitsecretfinder && pip install -r requirements.txt && cp SecretFinder.py ../secretfinder && chmod +x ~/.local/bin/secretfinder
 
+git clone https://github.com/r0oth3x49/ghauri ~/.local/bin/ghauri && cd ~/.local/bin/ghauri && pip install --upgrade -r requirements.txt
+
+git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git ~/.local/bin/sqlmap-dev && cd ~/.local/bin/sqlmap-dev && chmod +x sqlmap.py && cp sqlmap.py ../sqlmap
+
 wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip && unzip SecList.zip && rm -f SecList.zip && mv SecLists-master /seclists
 
 curl -sL https://raw.githubusercontent.com/epi052/feroxbuster/main/install-nix.sh | bash -s /usr/local/bin
