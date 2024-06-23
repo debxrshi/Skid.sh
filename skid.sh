@@ -80,6 +80,8 @@ dalfox file params
 
 # sqlmap
 
+# ghauri
+
 # katana
 
 #secretfinder
