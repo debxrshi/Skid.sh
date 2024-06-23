@@ -1,19 +1,39 @@
 # XSS and Bug Bounty Automation Setup
 
-### Idea:
+```
+@@@@@@   @@@  @@@  @@@  @@@@@@@         @@@@@@   @@@  @@@
+@@@@@@@   @@@  @@@  @@@  @@@@@@@@       @@@@@@@   @@@  @@@
+!@@       @@!  !@@  @@!  @@!  @@@       !@@       @@!  @@@
+!@!       !@!  @!!  !@!  !@!  @!@       !@!       !@!  @!@
+!!@@!!    @!@@!@!   !!@  @!@  !@!       !!@@!!    @!@!@!@!
+ !!@!!!   !!@!!!    !!!  !@!  !!!        !!@!!!   !!!@!!!!
+     !:!  !!: :!!   !!:  !!:  !!!            !:!  !!:  !!!
+    !:!   :!:  !:!  :!:  :!:  !:!  :!:      !:!   :!:  !:!
+:::: ::    ::  :::   ::   :::: ::  :::  :::: ::   ::   :::
+:: : :     :   :::  :    :: :  :   :::  :: : :     :   : :
 
-subfinder, amass, assetfinder, httpx, waymore, wayback -> final_urls.txt -> gau, paramspider, katana, arjun, uro -> params.txt -> dalfox, kxss, xsstrike, sqlmap, ghauri -> aquatone.
 
-### Build with `docker`:
+                                         -- @debxrshi
+```
+
+## Flow
+
+subdomain enumeration -> url crawling -> param mining -> js analysis -> lfi/xss/sqli automation
+
+### Build with `docker`
 
 ```sh
 docker build -t skid:skid .
 ```
 
-### Usage:
+### Usage
 
 1. Create a file `skidconfig`
 1. Add your API keys in the file. `skid.sh` is configured to parse them and place them in the correct locations for the tools that require API keys.
 1. Run the script -> `./skid.sh target.com`
 1. ???
 1. Profit
+
+### Footnote
+
+If this tool helped you, feel free to hit me up and tell me your story :) [@cvewhen](https://x.com/cvewhen) on Twitter, [@xnu53x](discord.gg) on Discord.
