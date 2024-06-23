@@ -2,26 +2,21 @@
 
 # For the skids by a skid(?) lol
 
-echo "
- @@@@@@   @@@  @@@  @@@  @@@@@@@         @@@@@@   @@@  @@@ 
-@@@@@@@   @@@  @@@  @@@  @@@@@@@@       @@@@@@@   @@@  @@@ 
-!@@       @@!  !@@  @@!  @@!  @@@       !@@       @@!  @@@ 
-!@!       !@!  @!!  !@!  !@!  @!@       !@!       !@!  @!@ 
-!!@@!!    @!@@!@!   !!@  @!@  !@!       !!@@!!    @!@!@!@! 
- !!@!!!   !!@!!!    !!!  !@!  !!!        !!@!!!   !!!@!!!! 
-     !:!  !!: :!!   !!:  !!:  !!!            !:!  !!:  !!! 
-    !:!   :!:  !:!  :!:  :!:  !:!  :!:      !:!   :!:  !:! 
-:::: ::    ::  :::   ::   :::: ::  :::  :::: ::   ::   ::: 
-:: : :     :   :::  :    :: :  :   :::  :: : :     :   : : 
-
-                                      
-                                         -- @debxrshi
-"
+echo -e '
+         __   _     __       __  
+   _____/ /__(_)___/ / _____/ /_ 
+  / ___/ //_/ / __  / / ___/ __ \
+ (__  ) ,< / / /_/ / (__  ) / / /
+/____/_/|_/_/\__,_(_)____/_/ /_/ 
+                                
+                          
+                          - @debxrshi
+'
 
 # usage
 
 if [ -z "$1" ]; then
-	echo "usage: skid.sh target.com"
+	echo -e "u\e[33m[-]\e[0m usage: skid.sh target.com"
 	exit 1
 fi
 target=$1
@@ -33,7 +28,7 @@ if [ -f skidconfig ]; then
 	echo -e "\e[32m[+]\e[0m Copying config \n"
 
 	#TODO: CONFIG PARSING
-	chaos_key=apikey
+	chaos_key=AAAA
 else
 	echo -e "\e[33m[-]\e[0m Config not found! Continuing without config\n"
 fi
@@ -69,34 +64,24 @@ httpx -l subs -fr -random-agent -sc -title -td -server -retries 3 -fc 404 -lc -t
 
 paramspider -l subs -o params_paramsp
 
-cat subs | gau | tee >(grep "=" >params_gau) | grep -v "=" >urls_gau
+cat subs | gau --threads 8 | tee >(grep "=" >params_gau) | grep -v "=" >urls_gau
 
 waymore -i "$target" -mode U -oU urls_waymore
 
-uro -i urls* -o urls_uro
+cat urls_waymore >(grep "=" >params_waymore) | grep -v "=" >urls_waymore
 
-uro -i params* -o urls_final
+uro -i urls* -o urls
 
-# ghauri
+uro -i params* -o params
 
-# wpscan
+xsstrike -f params
 
-# waymore
-
-# paramspider
-
-# aquatone
-
-# wayback
+dalfox file params
 
 # sqlmap
 
 # katana
 
+#secretfinder
+
 # lfi testss
-
-# uro
-
-# xsstrike
-
-# dalfox file "${target}_final_urls"
