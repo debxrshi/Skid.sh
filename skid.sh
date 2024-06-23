@@ -13,16 +13,14 @@ echo -e '
                           - @debxrshi
 '
 
-# usage
-
 if [ -z "$1" ]; then
 	echo -e "u\e[33m[-]\e[0m usage: skid.sh target.com"
 	exit 1
 fi
 target=$1
-echo -e "...Executing tools...\n"
+echo -e "\e[32m[+]\e[0m Executing tools\n"
 
-echo -e "\e[32m[+]\e[0m Looking for configs..."
+echo -e "\e[32m[+]\e[0m Looking for configs "
 
 if [ -f skidconfig ]; then
 	echo -e "\e[32m[+]\e[0m Copying config \n"
