@@ -20,11 +20,17 @@
 
 subdomain enumeration -> url crawling -> param mining -> js analysis -> lfi/xss/sqli automation
 
-### Build with `docker`
+### Tool setup
+
+You can either build with docker:
 
 ```sh
 docker build -t skid:skid .
 ```
+
+Or,
+
+run `install.sh` to install tools locally. Script is configured for an Ubuntu VPS with Golang installed.
 
 ### Usage
 
