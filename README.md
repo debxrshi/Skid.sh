@@ -37,4 +37,4 @@ run `install.sh` to install tools locally. Script is configured for an Ubuntu VP
 
 ### Footnote
 
-If this tool helped you, or you have suggestions, feel free to hit me up :) [@cvewhen](https://x.com/cvewhen) on Twitter, [@xnu53x](discord.gg) on Discord.
+If this script helped you, or you have suggestions, feel free to hit me up :) [@cvewhen](https://x.com/cvewhen) on Twitter, [@xnu53x](discord.gg) on Discord.
