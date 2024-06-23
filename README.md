@@ -11,7 +11,7 @@
 
 ```
 
-## Flow
+### Flow
 
 subdomain enumeration -> url crawling -> param mining -> js analysis -> lfi/xss/sqli automation
 
@@ -31,7 +31,7 @@ run `install.sh` to install tools locally. Script is configured for an Ubuntu VP
 
 1. Create a file `skidconfig`
 1. Add your API keys in the file. `skid.sh` is configured to parse them and place them in the correct locations for the tools that require API keys.
-1. Run the script -> `./skid.sh target.com`
+1. Run the script -> `./skid.sh target.com || ./skid.sh -f targets.txt`
 1. ???
 1. Profit
 
