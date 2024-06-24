@@ -11,7 +11,7 @@ echo -e '
 
                       - @debxrshi
         
------------RECON MODE-------------                          
+-----------RECON ONLY MODE-----------                         
 
 '
 
