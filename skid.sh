@@ -52,9 +52,9 @@ process_target() {
 	echo -e "\n\e[32m[+]\e[0m Hunting subdomains with subfinder \n\n"
 	subfinder -d "$target" -all -recursive -o subs_subf -active
 
-	echo "$target" >>subs
+	echo "$target" >> subs
 
-	cat subs_* | sort -u >>subs
+	cat subs_* | sort -u >> subs
 
 	if [ $(wc -l <subs) -lt 2 ]; then
 		echo -e "\n No subdomains found"
@@ -63,35 +63,56 @@ process_target() {
 		httpx -l subs -fr -random-agent -sc -title -td -server -retries 3 -fc 404 -lc -t 500
 	fi
 
-	#TODO: Paramspider Dev , Setup JS, LFI, XSS, SQLi
+	#TODO: Setup JS, LFI, XSS, SQLi
 
 	echo -e "\n\e[32m[+]\e[0m Gathering URLs with gau \n\n"
 
 	#TODO: Better URL segregation and parsing
 
-	gau --threads 8 $(cat subs) | anew | tee >(grep "=" | anew >params_gau) | grep -v "=" | anew >urls_gau
+	gau --threads 8 $(cat subs) | anew endpoints_gau
+
+	uro -i endpoints_gau -o endpoints_gau
+
+	grep "=" endpoints_gau | anew params_gau
+
+	grep -v "=" endpoints_gau | anew urls_gau
 
 	echo -e "\n\e[32m[+]\e[0m Gathering waymore URLs \n\n"
 
-	waymore -i "$target" -mode U -oU urls_waymore
+	waymore -i "$target" -mode U -oU endpoints_waymore
 
 	#bug
+	uro -i endpoints_waymore -o endpoints_waymore
+
+	grep "=" endpoints_waymore | anew params_waymore
 	
-	tee >(grep "=" | anew >params_waymore)< urls_waymore | grep -v "=" | anew > urls_waymore
+	grep -v "=" endpoints_waymore | anew urls_waymore
 
 	echo -e "\n\e[32m[+]\e[0m Cleaning URLs with uro \n\n"
 
-	cat urls* | sort -u >> urls
+	echo -e "\n\e[32m[+]\e[0m Gathering params with katana \n\n"
+
+	cat subs | katana -jc -xhr -jsl -iqp -o endpoints_katana
+
+	uro -i endpoints_katana -o endpoints_katana
+
+	grep -v "=" endpoints_katana | anew urls_katana
+
+	grep "=" endpoints_katana | anew params_katana
+
+	cat urls* | sort -u > urls
 
 	uro -i urls -o urls
-
+	
 	echo -e "\n\e[32m[+]\e[0m Gathering params with paramspider \n\n"
 
 	paramspider -l subs -t 3 -p ""
 
-	cat results/* | sort -u >> params_paramsp
+	cat results/* | sort -u > params_paramsp
 
-	cat params* | sort -u | anew params
+	uro -i params_paramsp -o params_paramsp
+
+	cat params* | sort -u > params
 
 	uro -i params -o params
 
