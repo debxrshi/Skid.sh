@@ -29,8 +29,16 @@ run `install.sh` to install tools locally. Script is configured for an Ubuntu VP
 
 ### Usage
 
+-RECON  ONLY-
+
+If you just want to perform recon on your target(s) it's advisable to run the `recon.sh` script. It will perform all the recon you need for you and can also be run in subdomain monitoring mode with your discord webhook.
+
 1. Create a file `skidconfig`
-1. Add your API keys in the file. `skid.sh` is configured to parse them and place them in the correct locations for the tools that require API keys.
+1. Add your API keys in the file including webhooks. Check the demo file for correct format.
+1. Run the script `./recon.sh target.com || ./recon.sh -f targets.txt`
+
+1. Create a file `skidconfig`
+1. Add your API keys in the file. 
 1. Run the script -> `./skid.sh target.com || ./skid.sh -f targets.txt`
 1. ???
 1. Profit
