@@ -75,27 +75,33 @@ process_target() {
 
 	waymore -i "$target" -mode U -oU urls_waymore
 
-	sleep 3
-
-	tee >(grep "=" | anew >params_waymore) <urls_waymore | grep -v "=" | anew >urls_waymore
+	#bug
+	
+	tee >(grep "=" | anew >params_waymore)< urls_waymore | grep -v "=" | anew > urls_waymore
 
 	echo -e "\n\e[32m[+]\e[0m Cleaning URLs with uro \n\n"
 
-	cat urls* | sort -u | urls
-
-	cat params* | sort -u | params
+	cat urls* | sort -u >> urls
 
 	uro -i urls -o urls
+
+	echo -e "\n\e[32m[+]\e[0m Gathering params with paramspider \n\n"
+
+	paramspider -l subs -t 3 -p ""
+
+	cat results/* | sort -u >> params_paramsp
+
+	cat params* | sort -u | anew params
 
 	uro -i params -o params
 
 	echo -e "\n\e[32m[+]\e[0m Hunting XSS with XSStrike \n\n"
 
-	return
+	exit
 
 	xsstrike --delay 5 --seeds params
 
-	sleep 180
+	sleep 300
 
 	dalfox file params --delay 3000
 	# sqlmap
