@@ -2,11 +2,11 @@ FROM golang:latest
 
 RUN apt update -y && apt install -y nmap vim python3 python3-pip unzip curl screen
 
-WORKDIR /hunter
+WORKDIR /recon
 
-COPY skid.sh /hunter
+COPY ../../recon.sh /recon
 
-RUN chmod +x /hunter/skid.sh
+RUN chmod +x /recon/skid.sh
 
 RUN go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest && go install -v github.com/OJ/gobuster/v3@latest && go install github.com/lc/gau/v2/cmd/gau@latest && go install github.com/ffuf/ffuf/v2@latest && go install -v github.com/tomnomnom/anew@latest
 
