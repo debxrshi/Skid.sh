@@ -30,6 +30,9 @@ process_target() {
 	if [ -f skidconfig ]; then
 		echo -e "\e[32m[+]\e[0m Copying config \n"
 		# TODO: CONFIG PARSING
+
+
+
 		chaos_key=AAAA
 	else
 		echo -e "\e[33m[-]\e[0m Config not found! Continuing without config\n"
@@ -54,15 +57,16 @@ process_target() {
 	echo -e "\n\e[32m[+]\e[0m Hunting subdomains with subfinder \n\n"
 	subfinder -d "$target" -all -recursive -o subs_subf -active
 
-	echo "$target" >> subs
+	echo "$target" >> subs.txt
 
-	cat subs_* | sort -u >> subs
+	cat subs_* | anew subs.txt
 
 	if [ $(wc -l <subs) -lt 2 ]; then
 		echo -e "\n No subdomains found"
 	else
 		echo -e "\n\e[32m[+]\e[0m Probing subdomains with httpx\n\n"
 		httpx -l subs -fr -random-agent -sc -title -td -server -retries 3 -fc 404 -lc -t 500
+		httpx -l subs -fr -random-agent -retries 5 -fc 404 -t 500 -silent -o active_subs.txt
 	fi
 
     #dnsx shuffledns and more to be added
